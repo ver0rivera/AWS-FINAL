@@ -15,7 +15,7 @@ from sqlalchemy.orm import Session
 import boto3
 from botocore.exceptions import NoCredentialsError
 import os
-from dotenv import load_dotenv
+from credentials import *
 
 
 
@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 models.Base.metadata.create_all(bind=database.engine)
 
 app = FastAPI()
-load_dotenv()
+
 
 def get_db():
     db = database.SessionLocal()
@@ -34,9 +34,9 @@ def get_db():
         db.close()
 
 
-aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID")
-aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY")
-aws_session_token = os.getenv("AWS_SESSION_TOKEN")  # Omitir si no es necesario# Omitir si no es necesario
+aws_access_key_id = AWS_ACCESS_KEY_ID
+aws_secret_access_key = AWS_SECRET_ACCESS_KEY
+aws_session_token = AWS_SESSION_TOKEN # Omitir si no es necesario# Omitir si no es necesario
       
 
 dynamodb = boto3.resource("dynamodb",
